@@ -11,6 +11,12 @@ import kotlinx.android.synthetic.main.layout_item_dice.view.*
 
 class DiceAdapter(private var items: ArrayList<Dice>) : RecyclerView.Adapter<DiceAdapter.ViewHolder>() {
 
+    private var clickListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onItemClick(view: View, position: Int)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.layout_item_dice, parent, false)
@@ -22,6 +28,10 @@ class DiceAdapter(private var items: ArrayList<Dice>) : RecyclerView.Adapter<Dic
 
         holder.name.text = item.name
         holder.figure.text = item.figure.toString()
+
+        holder.itemView.setOnClickListener {
+            clickListener?.onItemClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -35,6 +45,14 @@ class DiceAdapter(private var items: ArrayList<Dice>) : RecyclerView.Adapter<Dic
         }
         items.add(dice)
         notifyDataSetChanged()
+    }
+
+    fun getDiceFigure(position: Int): Int {
+        return items[position].figure
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.clickListener = listener
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

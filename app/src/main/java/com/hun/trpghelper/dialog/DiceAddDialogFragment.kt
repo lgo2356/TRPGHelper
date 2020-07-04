@@ -49,8 +49,8 @@ class DiceAddDialogFragment : DialogFragment() {
         this.diceAddListener = listener
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        diceAddListener = null
-    }
+//    override fun onDetach() {
+//        super.onDetach()
+//        diceAddListener = null
+//    }
 }

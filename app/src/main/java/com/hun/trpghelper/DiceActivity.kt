@@ -3,6 +3,7 @@ package com.hun.trpghelper
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hun.trpghelper.adapter.DiceAdapter
@@ -15,6 +16,7 @@ class DiceActivity : AppCompatActivity() {
     private val dices = ArrayList<Dice>()
     private val diceAdapter = DiceAdapter(dices)
     private val diceAddDialog = DiceAddDialogFragment()
+    private val diceRollPopup = DicePopupFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,17 @@ class DiceActivity : AppCompatActivity() {
 
         recycler_dice_list.adapter = diceAdapter
         recycler_dice_list.layoutManager = LinearLayoutManager(this)
+
+        diceAdapter.setOnItemClickListener(object : DiceAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, position: Int) {
+                val diceFigure: Int = diceAdapter.getDiceFigure(position)
+                val bundle = Bundle()
+                bundle.putInt("figure", diceFigure)
+                diceRollPopup.arguments = bundle
+
+                diceRollPopup.show(supportFragmentManager, "missiles")
+            }
+        })
 
         diceAddDialog.setOnDiceAddListener(object : DiceAddDialogFragment.OnDiceAddListener {
             override fun onDiceAdd(name: String, figure: Int) {
@@ -40,7 +53,7 @@ class DiceActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.add_dice -> {
                 diceAddDialog.show(supportFragmentManager, "missiles")
-//                diceAdapter.addDice("Dice 01", 4)
+//                diceRollPopup.show(supportFragmentManager, "missiles")
                 return true
             }
 
