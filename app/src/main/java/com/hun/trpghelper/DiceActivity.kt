@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hun.trpghelper.adapter.DiceAdapter
 import com.hun.trpghelper.dialog.DiceAddDialogFragment
+import com.hun.trpghelper.dialog.DiceRollPopupFragment
 import com.hun.trpghelper.dto.Dice
 import kotlinx.android.synthetic.main.activity_dice.*
 
@@ -16,7 +17,7 @@ class DiceActivity : AppCompatActivity() {
     private val dices = ArrayList<Dice>()
     private val diceAdapter = DiceAdapter(dices)
     private val diceAddDialog = DiceAddDialogFragment()
-    private val diceRollPopup = DicePopupFragment()
+    private val diceRollPopup = DiceRollPopupFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
